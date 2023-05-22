@@ -2,24 +2,24 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { fetchFunction } from "../fetchFunction";
 
-export const fetchTodos = createAsyncThunk(
-    "todos/fetchTodos",
-    async (_, { rejectWithValue }) => {
+export const getTodosByUserId = createAsyncThunk(
+    "users/getTodosByUserId",
+    async (id, { rejectWithValue }) => {
         return fetchFunction(
-            "https://jsonplaceholder.typicode.com/todos?_limit=20",
+            `https://jsonplaceholder.typicode.com/users/${id}/todos`,
             rejectWithValue
         );
     }
 );
 
-export const toggleStatus = createAsyncThunk(
+export const toggleStatusByUserId = createAsyncThunk(
     "todos/toggleStatus",
-    async (id, { rejectWithValue, dispatch, getState }) => {
+    async ({ id, idTodo }, { rejectWithValue, dispatch, getState }) => {
         const todo = getState().todos.todos.find((todo) => todo.id === id);
 
         try {
             const response = await fetch(
-                `https://jsonplaceholder.typicode.com/todos/${id}`,
+                `https://jsonplaceholder.typicode.com/users/${id}/todos/${idTodo}`,
                 {
                     method: "PATCH",
                     headers: {
@@ -43,12 +43,12 @@ export const toggleStatus = createAsyncThunk(
     }
 );
 
-export const deleteTodo = createAsyncThunk(
+export const deleteTodoByUserId = createAsyncThunk(
     "todos/deleteTodo",
-    async (id, { rejectWithValue, dispatch }) => {
+    async ({ id, idTodo }, { rejectWithValue, dispatch }) => {
         try {
             const response = await fetch(
-                `https://jsonplaceholder.typicode.com/todos/${id}`,
+                `https://jsonplaceholder.typicode.com/users/${id}/todos/${idTodo}`,
                 {
                     method: "DELETE",
                 }
@@ -79,10 +79,10 @@ const setError = (state, action) => {
     state.error = action.payload;
 };
 
-export const TodosSlice = createSlice({
-    name: "todos",
+export const tabUserTodoSlice = createSlice({
+    name: "userTodos",
     initialState: {
-        todos: [],
+        userTodos: [],
         status: null,
         error: null,
     },
@@ -100,21 +100,21 @@ export const TodosSlice = createSlice({
         },
     },
     extraReducers: {
-        [fetchTodos.pending]: setLoading,
-        [fetchTodos.fulfilled]: (state, action) => {
+        [getTodosByUserId.pending]: setLoading,
+        [getTodosByUserId.fulfilled]: (state, action) => {
             state.status = "resolved";
-            state.todos = action.payload;
+            state.userTodos = action.payload;
         },
-        [fetchTodos.rejected]: setError,
-        [deleteTodo.pending]: setLoading,
-        [deleteTodo.fulfilled]: setValue,
-        [deleteTodo.rejected]: setError,
-        [toggleStatus.pending]: setLoading,
-        [toggleStatus.fulfilled]: setValue,
-        [toggleStatus.rejected]: setError,
+        [getTodosByUserId.rejected]: setError,
+        [deleteTodoByUserId.pending]: setLoading,
+        [deleteTodoByUserId.fulfilled]: setValue,
+        [deleteTodoByUserId.rejected]: setError,
+        [toggleStatusByUserId.pending]: setLoading,
+        [toggleStatusByUserId.fulfilled]: setValue,
+        [toggleStatusByUserId.rejected]: setError,
     },
 });
 
-export const { toggleComplete, removeTodo } = TodosSlice.actions;
+const { toggleComplete, removeTodo } = tabUserTodoSlice.actions;
 
-export default TodosSlice.reducer;
+export default tabUserTodoSlice.reducer;

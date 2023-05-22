@@ -1,0 +1,55 @@
+.listMain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list {
+    text-align: left;
+    list-style-type: none;
+    margin-left: 20px;
+    width: 350px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.item span {
+    margin-left: 10px;
+}
+
+.userDetails {
+    width: 95%;
+    margin: 0 auto;
+}
+.userButtons {
+    display: flex;
+}
+.userButton {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+#active {
+    border: none;
+    border-top: 3px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.userList {
+    height: 300px;
+    overflow-y: scroll;
+    text-align: left;
+}
+/* .list__item {
+} */
+.item__title {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+}

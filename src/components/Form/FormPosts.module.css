@@ -1,0 +1,40 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    /* justify-content: space-between; */
+    align-items: center;
+    margin-left: 40px;
+}
+
+.block__input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 5px;
+    border-bottom: 1px solid black;
+}
+
+.from__button {
+    margin-top: 10px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    padding: 5px;
+    border: 1px solid black;
+    transition: 0.3s;
+    background: none;
+    cursor: pointer;
+}
+
+.from__button:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+}
+
+.from__input {
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: none;
+}

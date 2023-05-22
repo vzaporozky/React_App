@@ -20,7 +20,7 @@ export const UserList = () => {
 
             <ul>
                 {users.map((user) => (
-                    <UserItem key={user.id} {...user} />
+                    <UserItem key={user.id} {...user} id={user.id} />
                 ))}
             </ul>
         </div>
