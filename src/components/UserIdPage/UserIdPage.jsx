@@ -1,7 +1,6 @@
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faEnvelope,
     faUser,
@@ -11,13 +10,12 @@ import {
     faTruckFast,
 } from "@fortawesome/free-solid-svg-icons";
 
-// import { Navigation } from "../Navigation/Navigation";
 import { getById } from "../../store/UserIdSlice";
 import { getAlbumsByUserId } from "../../store/tabUserAlbumsSlice";
 import { getTodosByUserId } from "../../store/tabUserTodoSlice";
 import { getPostsByUserId } from "../../store/tabUserPostsSlice";
-import { toggleStatusByUserId } from "../../store/tabUserTodoSlice";
 
+import { ListElement } from "./ListElement";
 import { PageTemplate } from "../PageTemplate/PageTemplate";
 import cl from "./UserIdPage.module.css";
 import { TodoItem } from "./../TodoList/TodoItem/TodoItem";
@@ -53,7 +51,7 @@ export const UserIdPage = () => {
         dispatch(getAlbumsByUserId(params.id));
         dispatch(getTodosByUserId(params.id));
         dispatch(getPostsByUserId(params.id));
-    }, [dispatch]);
+    }, [dispatch, params.id]);
 
     return (
         <div>
@@ -65,58 +63,54 @@ export const UserIdPage = () => {
                 <ul className={cl.list}>
                     {user && user.address && (
                         <>
-                            <li className={cl.item}>
-                                <FontAwesomeIcon icon={faUser} />
-                                <span>
-                                    <p>name</p>
-                                    {user.name + " " + user.username}
-                                </span>
-                            </li>
-                            <li className={cl.item}>
-                                <FontAwesomeIcon icon={faEnvelope} />
-                                <span>
-                                    <p>email</p>
-                                    {user.email}
-                                </span>
-                            </li>
-                            <li className={cl.item}>
-                                <FontAwesomeIcon icon={faPhone} />
-                                <span>
-                                    <p>phone</p>
-                                    {user.phone}
-                                </span>
-                            </li>
+                            <ListElement
+                                className={cl.item}
+                                icon={faUser}
+                                name="name"
+                                text={user.name + " " + user.username}
+                            />
+                            <ListElement
+                                className={cl.item}
+                                icon={faEnvelope}
+                                name="email"
+                                text={user.email}
+                            />
+                            <ListElement
+                                className={cl.item}
+                                icon={faPhone}
+                                name="phone"
+                                text={user.phone}
+                            />
                         </>
                     )}
                 </ul>
                 <ul className={cl.list}>
                     {user && user.address && (
                         <>
-                            <li className={cl.item}>
-                                <FontAwesomeIcon icon={faHouse} />
-                                <span>
-                                    <p>address</p>
-                                    {user.address.city +
-                                        " " +
-                                        user.address.street +
-                                        " " +
-                                        user.address.suite}
-                                </span>
-                            </li>
-                            <li className={cl.item}>
-                                <FontAwesomeIcon icon={faGlobe} />
-                                <span>
-                                    <p>website</p>
-                                    {user.website}
-                                </span>
-                            </li>
-                            <li className={cl.item}>
-                                <FontAwesomeIcon icon={faTruckFast} />
-                                <span>
-                                    <p>company name</p>
-                                    {user.company.name}
-                                </span>
-                            </li>
+                            <ListElement
+                                className={cl.item}
+                                icon={faHouse}
+                                name="address"
+                                text={
+                                    user.address.city +
+                                    " " +
+                                    user.address.street +
+                                    " " +
+                                    user.address.suite
+                                }
+                            />
+                            <ListElement
+                                className={cl.item}
+                                icon={faGlobe}
+                                name="website"
+                                text={user.website}
+                            />
+                            <ListElement
+                                className={cl.item}
+                                icon={faTruckFast}
+                                name="company name"
+                                text={user.company.name}
+                            />
                         </>
                     )}
                 </ul>
