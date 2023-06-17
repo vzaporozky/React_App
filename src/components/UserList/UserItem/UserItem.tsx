@@ -1,8 +1,11 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 import cl from "./UserItem.module.css";
 
-export const UserItem = ({ name, username, id }) => {
+import { UserItemState } from "../../../interfaces";
+
+export const UserItem: React.FC<UserItemState> = ({ name, username, id }) => {
     return (
         <li className={cl.user}>
             {name} {username}

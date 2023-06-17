@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 
 import { UserItem } from "./UserItem/UserItem";
 import { fetchUsers } from "../../store/UserListSlice";
 import { PageTemplate } from "../PageTemplate/PageTemplate";
 
+import { useAppSelector, useAppDispatch } from "../../features/hook";
+
 export const UserList = () => {
-    const users = useSelector((state) => state.users.users);
-    const { status, error } = useSelector((state) => state.users);
-    const dispatch = useDispatch();
+    const users = useAppSelector((state) => state.users.users);
+    const { status, error } = useAppSelector((state) => state.users);
+
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(fetchUsers());

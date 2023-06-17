@@ -3,9 +3,19 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import cl from "./FormPosts.module.css";
+import { useAppDispatch } from "../../features/hook";
 
-const FormPost = ({ onAddPost }) => {
+import { createNewPost } from "../../store/PostsSlice";
+
+import cl from "./FormPosts.module.css";
+import { PostsState } from "../../interfaces";
+
+const FormPost = () => {
+    const dispatch = useAppDispatch();
+
+    const handlePostSubmission = (post: Omit<PostsState, "id">) =>
+        dispatch(createNewPost(post));
+
     const validationSchema = yup.object().shape({
         title: yup.string().required("Required"),
         body: yup.string().required("Required"),
@@ -23,10 +33,7 @@ const FormPost = ({ onAddPost }) => {
         resolver: yupResolver(validationSchema),
     });
 
-    const handleIdChange = (event) => {
-        const postId = event.target.value;
-
-        // function to check if a post exists
+    const handleIdChange = () => {
         const postExists = true;
 
         if (postExists) {
@@ -40,14 +47,14 @@ const FormPost = ({ onAddPost }) => {
         }
     };
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (data: any) => {
         try {
             const post = {
                 title: data.title,
                 body: data.body,
                 postId: data.postId,
             };
-            await onAddPost(post);
+            await handlePostSubmission(post);
             reset();
         } catch (error) {
             console.error(error);
@@ -66,7 +73,9 @@ const FormPost = ({ onAddPost }) => {
                         className={cl.from__input}
                         {...register("title")}
                     />
-                    {errors.title && <span>{errors.title.message}</span>}
+                    {errors.title?.message && (
+                        <span>{errors.title.message as string}</span>
+                    )}
                 </div>
                 <div className={cl.block__input}>
                     <label htmlFor="body">Body</label>
@@ -77,7 +86,9 @@ const FormPost = ({ onAddPost }) => {
                         className={cl.from__input}
                         {...register("body")}
                     />
-                    {errors.body && <span>{errors.body.message}</span>}
+                    {errors.body?.message && (
+                        <span>{errors.body.message as string}</span>
+                    )}
                 </div>
                 <div className={cl.block__input}>
                     <label htmlFor="postId">ID</label>
@@ -89,7 +100,9 @@ const FormPost = ({ onAddPost }) => {
                         onChange={handleIdChange}
                         className={cl.from__input}
                     />
-                    {errors.postId && <span>{errors.postId.message}</span>}
+                    {errors.postId?.message && (
+                        <span>{errors.postId.message as string}</span>
+                    )}
                 </div>
                 <button type="submit" className={cl.from__button}>
                     Submit

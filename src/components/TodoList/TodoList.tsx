@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+
+import { useAppSelector, useAppDispatch } from "../../features/hook";
 
 import { TodoItem } from "./TodoItem/TodoItem";
 import { fetchTodos } from "../../store/TodoListSlice";
 import { PageTemplate } from "../PageTemplate/PageTemplate";
 
 export const TodoList = () => {
-    const todos = useSelector((state) => state.todos.todos);
-    const { status, error } = useSelector((state) => state.todos);
-    const dispatch = useDispatch();
+    const todos = useAppSelector((state) => state.todos.todos);
+    const { status, error } = useAppSelector((state) => state.todos);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(fetchTodos());

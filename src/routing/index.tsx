@@ -9,27 +9,27 @@ import { UserIdPage } from "../components/UserIdPage/UserIdPage";
 export const router = createBrowserRouter([
     {
         path: "/",
-        exact: true,
+        // exact: true,
         element: <Home />,
     },
     {
         path: "/PostsList",
-        exact: true,
+        // exact: true,
         element: <PostsList />,
     },
     {
         path: "/TodoList",
-        exact: true,
+        // exact: true,
         element: <TodoList />,
     },
     {
         path: "/UserList",
-        exact: true,
+        // exact: true,
         element: <UserList />,
     },
     {
         path: "/UserList/:id",
-        exact: true,
+        // exact: true,
         element: <UserIdPage />,
     },
 ]);

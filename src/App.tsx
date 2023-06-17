@@ -1,8 +1,8 @@
 import React from "react";
 import { RouterProvider } from "react-router-dom";
+import "./normalize.css";
 
 import "./App.css";
-import "./normalize.css";
 import { router } from "./routing/index";
 
 function App() {

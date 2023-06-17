@@ -1,7 +1,13 @@
 import { Navigation } from "../Navigation/Navigation";
 import cl from "./PageTemplate.module.css";
 
-export const PageTemplate = ({ name, status, error }) => {
+import { PageTemplateState } from "../../interfaces";
+
+export const PageTemplate: React.FC<PageTemplateState> = ({
+    name,
+    status,
+    error,
+}) => {
     return (
         <>
             <Navigation />

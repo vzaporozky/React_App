@@ -1,18 +1,26 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../features/hook";
+import { TodoItemState } from "../../../interfaces";
 
 import { toggleStatus, deleteTodo } from "../../../store/TodoListSlice";
 import {
     toggleStatusByUserId,
     deleteTodoByUserId,
 } from "../../../store/tabUserTodoSlice";
+
 import cl from "./TodoItem.module.css";
 
-export const TodoItem = ({ id, title, completed, form, idTodo }) => {
-    const dispatch = useDispatch();
+export const TodoItem: React.FC<TodoItemState> = ({
+    id,
+    title,
+    completed,
+    form,
+    todosId,
+}) => {
+    const dispatch = useAppDispatch();
 
     const onChange = () => {
         if (form) {
-            dispatch(toggleStatusByUserId({ id, idTodo }));
+            dispatch(toggleStatusByUserId({ id, todosId }));
         } else {
             dispatch(toggleStatus(id));
         }
@@ -20,7 +28,7 @@ export const TodoItem = ({ id, title, completed, form, idTodo }) => {
 
     const onClick = () => {
         if (form) {
-            dispatch(deleteTodoByUserId({ id, idTodo }));
+            dispatch(deleteTodoByUserId({ id, todosId }));
         } else {
             dispatch(deleteTodo(id));
         }
